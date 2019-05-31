@@ -1,0 +1,18 @@
+This is a program to emulate ARduino. This is a desktop stand alone executable for Windows.
+
+
+Whats New ?
+
+28/05/2019 V2.00
+	- Complete ré-écriture en C# + WPF + NamedPipes
+	- Peut émuler plusieurs types d'Arduino
+	- Peut émuler les expandeur de pin (74HC595 et SX1509 pour le moment.)
+
+	- Complete re-write of the program in C# + WPF + NamesPipes
+	- Can emulate different types of Arduino.
+	- Can emulate port expanders like 74HC595 and SX1509.
+
+19/07/2017 V1.00
+	- Nouveau projet de simulateur d'Arduino
+
+	- New project of an Arduino Emulator.
