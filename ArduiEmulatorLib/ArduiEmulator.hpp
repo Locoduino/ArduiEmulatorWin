@@ -81,35 +81,35 @@ typedef void (*debugLineEvent)(const char* inpLine);
 
 #define VCPINNUMBER	200
 
-extern long int _TCCR0A;
-extern long int _TCCR0B;
-extern long int _TCCR1A;
-extern long int _TCCR1B;
-extern long int _TCCR2A;
-extern long int _TCCR2B;
-extern long int _TCCR3A;
-extern long int _TCCR3B;
+extern "C" long int _TCCR0A;
+extern "C" long int _TCCR0B;
+extern "C" long int _TCCR1A;
+extern "C" long int _TCCR1B;
+extern "C" long int _TCCR2A;
+extern "C" long int _TCCR2B;
+extern "C" long int _TCCR3A;
+extern "C" long int _TCCR3B;
 
-extern long int _TIMSK0;
-extern long int _TIMSK1;
-extern long int _TIMSK2;
-extern long int _TIMSK3;
+extern "C" long int _TIMSK0;
+extern "C" long int _TIMSK1;
+extern "C" long int _TIMSK2;
+extern "C" long int _TIMSK3;
 
-extern long int _OCR0A;
-extern long int _OCR0B;
-extern long int _OCR1A;
-extern long int _OCR1B;
-extern long int _OCR2A;
-extern long int _OCR2B;
-extern long int _OCR3A;
-extern long int _OCR3B;
+extern "C" long int _OCR0A;
+extern "C" long int _OCR0B;
+extern "C" long int _OCR1A;
+extern "C" long int _OCR1B;
+extern "C" long int _OCR2A;
+extern "C" long int _OCR2B;
+extern "C" long int _OCR3A;
+extern "C" long int _OCR3B;
 
-extern long int _CLKPR;
+extern "C" long int _CLKPR;
 
-extern unsigned char *__heap_start__;
-extern unsigned char *__brkval__;
+extern "C" unsigned char *__heap_start__;
+extern "C" unsigned char *__brkval__;
 
-extern byte dontCheckNextPinAccess;
+extern "C" byte dontCheckNextPinAccess;
 
 extern void delay(int millis);
 extern void delayMicroseconds(int micros);

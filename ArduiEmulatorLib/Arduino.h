@@ -131,30 +131,30 @@
 #define OCIE2B		2
 #define OCIE3B		3
 
-#define TCCR0A	ArduiEmulator::Arduino::_TCCR0A
-#define TCCR0B	ArduiEmulator::Arduino::_TCCR0B
-#define TCCR1A	ArduiEmulator::Arduino::_TCCR1A
-#define TCCR1B	ArduiEmulator::Arduino::_TCCR1B
-#define TCCR2A	ArduiEmulator::Arduino::_TCCR2A
-#define TCCR2B	ArduiEmulator::Arduino::_TCCR2B
-#define TCCR3A	ArduiEmulator::Arduino::_TCCR3A	
-#define TCCR3B	ArduiEmulator::Arduino::_TCCR3B
+#define TCCR0A	_TCCR0A
+#define TCCR0B	_TCCR0B
+#define TCCR1A	_TCCR1A
+#define TCCR1B	_TCCR1B
+#define TCCR2A	_TCCR2A
+#define TCCR2B	_TCCR2B
+#define TCCR3A	_TCCR3A	
+#define TCCR3B	_TCCR3B
 
-#define TIMSK0	ArduiEmulator::Arduino::_TIMSK0	
-#define TIMSK1	ArduiEmulator::Arduino::_TIMSK1	
-#define TIMSK2	ArduiEmulator::Arduino::_TIMSK2	
-#define TIMSK3	ArduiEmulator::Arduino::_TIMSK3	
+#define TIMSK0	_TIMSK0	
+#define TIMSK1	_TIMSK1	
+#define TIMSK2	_TIMSK2	
+#define TIMSK3	_TIMSK3	
 
-#define OCR0A	ArduiEmulator::Arduino::_OCR0A	
-#define OCR0B	ArduiEmulator::Arduino::_OCR0B	
-#define OCR1A	ArduiEmulator::Arduino::_OCR1A	
-#define OCR1B	ArduiEmulator::Arduino::_OCR1B	
-#define OCR2A	ArduiEmulator::Arduino::_OCR2A	
-#define OCR2B	ArduiEmulator::Arduino::_OCR2B	
-#define OCR3A	ArduiEmulator::Arduino::_OCR3A	
-#define OCR3B 	ArduiEmulator::Arduino::_OCR3B 	
+#define OCR0A	_OCR0A	
+#define OCR0B	_OCR0B	
+#define OCR1A	_OCR1A	
+#define OCR1B	_OCR1B	
+#define OCR2A	_OCR2A	
+#define OCR2B	_OCR2B	
+#define OCR3A	_OCR3A	
+#define OCR3B 	_OCR3B 	
 
-#define CLKPR	ArduiEmulator::Arduino::_CLKPR	
+#define CLKPR	_CLKPR	
 
 //#define __heap_start	ArduiEmulator::Arduino::__heap_start__
 //#define __brkval		ArduiEmulator::Arduino::__brkval__

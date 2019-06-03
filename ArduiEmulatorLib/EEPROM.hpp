@@ -3,7 +3,7 @@
 #define __EEPROM_HPP__
 //-------------------------------------------------------------------
 
-#include "ArduiEmulator.inc"
+#include "ArduiEmulator.hpp"
 
 #define INT64	(__int64)
 

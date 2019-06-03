@@ -2,7 +2,7 @@
 #define LiquidCrystal_h
 
 #include "string.h"
-#include "ArduiEmulator.inc"
+#include "ArduiEmulator.hpp"
 
 // commands
 #define LCD_CLEARDISPLAY 0x01

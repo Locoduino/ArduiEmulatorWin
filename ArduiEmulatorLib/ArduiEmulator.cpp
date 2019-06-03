@@ -7,33 +7,33 @@
 #include "ArduiEmulator.hpp"
 #include "NamedPipes.h"
 
-static long int _TCCR0A;
-static long int _TCCR0B;
-static long int _TCCR1A;
-static long int _TCCR1B;
-static long int _TCCR2A;
-static long int _TCCR2B;
-static long int _TCCR3A;
-static long int _TCCR3B;
+long int _TCCR0A;
+long int _TCCR0B;
+long int _TCCR1A;
+long int _TCCR1B;
+long int _TCCR2A;
+long int _TCCR2B;
+long int _TCCR3A;
+long int _TCCR3B;
 
-static long int _TIMSK0;
-static long int _TIMSK1;
-static long int _TIMSK2;
-static long int _TIMSK3;
+long int _TIMSK0;
+long int _TIMSK1;
+long int _TIMSK2;
+long int _TIMSK3;
 
-static long int _OCR0A;
-static long int _OCR0B;
-static long int _OCR1A;
-static long int _OCR1B;
-static long int _OCR2A;
-static long int _OCR2B;
-static long int _OCR3A;
-static long int _OCR3B;
+long int _OCR0A;
+long int _OCR0B;
+long int _OCR1A;
+long int _OCR1B;
+long int _OCR2A;
+long int _OCR2B;
+long int _OCR3A;
+long int _OCR3B;
 
-static long int _CLKPR;
+long int _CLKPR;
 
-static unsigned char *__heap_start__;
-static unsigned char *__brkval__;
+unsigned char *__heap_start__;
+unsigned char *__brkval__;
 
 struct Pin
 {
@@ -44,7 +44,7 @@ struct Pin
 
 static Pin VCPins[VCPINNUMBER];
 static int VC_pins[VCPINNUMBER];
-static byte dontCheckNextPinAccess = 2;  // 2 when the pins are not initialized !
+byte dontCheckNextPinAccess = 2;  // 2 when the pins are not initialized !
 
 // Emulator setup -----------------------------------------------------
 void pinSetup()

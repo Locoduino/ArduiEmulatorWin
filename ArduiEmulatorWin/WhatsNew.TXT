@@ -3,7 +3,14 @@ This is a program to emulate ARduino. This is a desktop stand alone executable f
 
 Whats New ?
 
-28/05/2019 V2.00
+03/06/2019 V2.0.1
+	- Correction des registres (TCCR0A...)
+	- Retrait complet de ArduiEmulator.inc
+
+	- Fix of registers (TCCR0A...)
+	- Complete removing of ArduiEmulator.inc
+
+28/05/2019 V2.0.0
 	- Complete ré-écriture en C# + WPF + NamedPipes
 	- Peut émuler plusieurs types d'Arduino
 	- Peut émuler les expandeur de pin (74HC595 et SX1509 pour le moment.)
