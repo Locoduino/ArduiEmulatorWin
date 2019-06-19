@@ -10,8 +10,10 @@
 #define ARDUINO_ARCH_AVR
 
 #ifdef ARDUINO_ARCH_AVR
-	#define ARDUINO_AVR_MEGA
-	#define __AVR_ATmega2560__
+	//#define ARDUINO_AVR_MEGA
+	//#define __AVR_ATmega2560__
+	#define ARDUINO_AVR_NANO
+	#define __AVR_ATmega328P__
 #endif
 
 //#define pgm_read_byte(TT)			ArduiEmulator::Arduino::_pgm_read_byte(TT)
@@ -154,7 +156,21 @@
 #define OCR3A	_OCR3A	
 #define OCR3B 	_OCR3B 	
 
-#define CLKPR	_CLKPR	
+#define CLKPR	_CLKPR
+
+#define PINA		_PINA		
+#define PINB		_PINB
+#define PINC		_PINC
+#define PIND		_PIND
+#define PINE		_PINE
+#define PINF		_PINF
+
+#define PORTA		_PORTA
+#define PORTB		_PORTB
+#define PORTC		_PORTC
+#define PORTD		_PORTD
+#define PORTE		_PORTE
+#define PORTF		_PORTF
 
 //#define __heap_start	ArduiEmulator::Arduino::__heap_start__
 //#define __brkval		ArduiEmulator::Arduino::__brkval__

@@ -32,7 +32,7 @@ namespace ArduiEmulatorWin
 		// DB "string"						: Debug print
 		//												where "string" has to be printed to the debug console without the '"' ...
 		// 
-		// RS 										: Reset the emulator to empty default, to start a new emulation.
+		// RS "arduino"						: Reset the emulator to empty default, to start a new emulation. "arduino" argument is an optional information to set the current arduino model.
 		// TP 										:	Internally declare some pins and expander pins to test the emulator...
 
 		public bool ParseMessage(string inMessage)
@@ -61,6 +61,22 @@ namespace ArduiEmulatorWin
 					ClearSerialLog();
 					ClearDebug();
 					Arduino.pinsSetup();
+					if (items.Length > 1)
+					{
+						string mess = inMessage.Remove(0, 3);
+						if (mess[0] == '\"' && mess.EndsWith("\""))
+						{
+							foreach (ComboBoxItem model in this.ArduinoModelCombo.Items)
+							{
+								if (model.model.RSName == mess.Substring(1, mess.Length - 2))
+								{
+									this.ArduinoModelCombo.SelectedItem = model;
+									break;
+								}
+							}
+							return true;
+						}
+					}
 					return true;
 
 				case "EXP":

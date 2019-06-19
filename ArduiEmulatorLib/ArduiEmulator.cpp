@@ -32,6 +32,21 @@ long int _OCR3B;
 
 long int _CLKPR;
 
+long int _PORTA;
+long int _PORTB;
+long int _PORTC;
+long int _PORTD;
+long int _PORTE;
+long int _PORTF;
+
+long int _PINA;
+long int _PINB;
+long int _PINC;
+long int _PIND;
+long int _PINE;
+long int _PINF;
+
+
 unsigned char *__heap_start__;
 unsigned char *__brkval__;
 

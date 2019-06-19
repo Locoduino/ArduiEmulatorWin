@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "string.h"
 #include "NamedPipes.h"
+#include "Arduino.h"
 #include "ArduiEmulator.hpp"
 #include <cctype>
 
@@ -159,8 +160,33 @@ void NamedPipesSend(MessagesTypes inType, const CString &mess)
 
 	switch (inType)
 	{
+	case Reset:
+	{
+		CString arduinoType;
+#if defined(ARDUINO_ARCH_AVR)
+#if defined(__AVR_ATmega328P__)
+#if defined(ARDUINO_AVR_UNO)
+		arduinoType = _T("UNO");
+#elif defined(ARDUINO_AVR_NANO)
+		arduinoType = _T("NANO");
+#elif defined(ARDUINO_AVR_MINI)
+		arduinoType = _T("MINI");
+#endif
+#elif defined(__AVR_ATmega32U4__)
+		arduinoType = _T("PROMICRO");
+#elif defined(__AVR_ATmega2560__)
+		arduinoType = _T("MEGA2560");
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+		arduinoType = _T("ESP32");
+#elif defined(ARDUINO_ARCH_STM32F1)
+		arduinoType = _T("STM32F1");
+#endif
+
+		str.Format(_T("RS \"%s\""), (LPCTSTR) arduinoType);
+	}
+		break;
 	case Idle:								str = "IDLE";		break;
-	case Reset:								str = "RS";			break;
 	case SerialMessage:				str.Format(_T("SC \"%s\""), (LPCTSTR)mess);			break;
 	case DebugMessage:				str.Format(_T("DB \"%s\""), (LPCTSTR)mess);			break;
 	case PinMessagePinMode:		str.Format(_T("PM %s"), (LPCTSTR)mess);			break;
@@ -233,17 +259,27 @@ bool ParseMessage(const CString &inMessage)
 
 	if (tokens[0] == "PS")
 	{
+		int typeIndex = 0;
 		CStringA charstr(tokens[1]);
 		int pin = atoi((const char*)charstr);
-		charstr = CStringA(tokens[2]);
-		int exp = atoi((const char*)charstr);
-		if (tokens[3][0] == 'H')
-			pinStateRaw(pin, exp, VS_HIGH);
-		if (tokens[3][0] == 'L')
-			pinStateRaw(pin, exp, VS_LOW);
-		if (std::isdigit(tokens[3][0]))
+		int exp = 0;
+
+		if (tokenNb == 3)
+			typeIndex = 2;
+		if (tokenNb == 4)
 		{
-			CStringA charstr(tokens[3]);
+			charstr = CStringA(tokens[2]);
+			exp = atoi((const char*)charstr);
+			typeIndex = 3;
+		}
+
+		if (tokens[typeIndex][0] == 'H')
+			pinStateRaw(pin, exp, VS_HIGH);
+		if (tokens[typeIndex][0] == 'L')
+			pinStateRaw(pin, exp, VS_LOW);
+		if (std::isdigit(tokens[typeIndex][0]))
+		{
+			CStringA charstr(tokens[typeIndex]);
 			int value = atoi((const char*)charstr);
 			pinStateRaw(pin, exp, value);
 		}

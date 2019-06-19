@@ -9,6 +9,7 @@ namespace ArduiEmulatorWin
 	public class ArduinoModel
 	{
 		public string Name;
+		public string RSName;	// Name used by 'RS' message...
 		public int PinNumberMax;
 		public int AnalogMax;
 		public PinFunc[] pinFlags;

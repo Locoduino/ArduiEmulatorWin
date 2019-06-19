@@ -11,6 +11,7 @@ namespace ArduiEmulatorWin
 		public ArduinoUno()
 		{
 			this.Name = "Uno R3";
+			this.RSName = "UNO";
 			this.PinNumberMax = 20;
 			this.AnalogMax = 1023;
 

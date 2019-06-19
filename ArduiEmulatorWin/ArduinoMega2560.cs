@@ -11,6 +11,7 @@ namespace ArduiEmulatorWin
 		public ArduinoMega2560()
 		{
 			this.Name = "Mega 2560";
+			this.RSName = "MEGA2560";
 			this.PinNumberMax = 70;
 			this.AnalogMax = 1023;
 

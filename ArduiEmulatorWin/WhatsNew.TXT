@@ -3,10 +3,18 @@ This is a program to emulate ARduino. This is a desktop stand alone executable f
 
 Whats New ?
 
+19/06/2019 V2.1.0
+	- La commande Reset ('RS') reçoit maintenant le type d'Arduino sélectionné par le programme appelant.
+	- La remontée d'information sur un changement détat d'une broche par l'émulateur (double clic sur une broche...) ne fonctionnait pas.
+	____________
+	- Reset command receive also the Arduino model type from the ino program.
+	- Fix of message to inform ino program that the user have changed one pin state by double clicking it in the emulator window.
+
 03/06/2019 V2.0.1
 	- Correction des registres (TCCR0A...)
 	- Retrait complet de ArduiEmulator.inc
 
+	____________
 	- Fix of registers (TCCR0A...)
 	- Complete removing of ArduiEmulator.inc
 
@@ -15,6 +23,7 @@ Whats New ?
 	- Peut émuler plusieurs types d'Arduino
 	- Peut émuler les expandeur de pin (74HC595 et SX1509 pour le moment.)
 
+	____________
 	- Complete re-write of the program in C# + WPF + NamesPipes
 	- Can emulate different types of Arduino.
 	- Can emulate port expanders like 74HC595 and SX1509.
@@ -22,4 +31,5 @@ Whats New ?
 19/07/2017 V1.00
 	- Nouveau projet de simulateur d'Arduino
 
+	____________
 	- New project of an Arduino Emulator.

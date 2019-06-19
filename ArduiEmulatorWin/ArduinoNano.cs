@@ -11,6 +11,7 @@ namespace ArduiEmulatorWin
 		public ArduinoNano()
 		{
 			this.Name = "Nano R3";
+			this.RSName = "NANO";
 			this.PinNumberMax = 22;
 			this.AnalogMax = 1023;
 

@@ -106,6 +106,20 @@ extern "C" long int _OCR3B;
 
 extern "C" long int _CLKPR;
 
+extern "C" long int _PORTA;
+extern "C" long int _PORTB;
+extern "C" long int _PORTC;
+extern "C" long int _PORTD;
+extern "C" long int _PORTE;
+extern "C" long int _PORTF;
+
+extern "C" long int _PINA;
+extern "C" long int _PINB;
+extern "C" long int _PINC;
+extern "C" long int _PIND;
+extern "C" long int _PINE;
+extern "C" long int _PINF;
+
 extern "C" unsigned char *__heap_start__;
 extern "C" unsigned char *__brkval__;
 
