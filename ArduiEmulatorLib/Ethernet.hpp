@@ -79,7 +79,7 @@ private:
 	uint16_t _port;
 public:
 	EthernetServer(uint16_t inPort);
-	EthernetClient *available();
+	EthernetClient &available();
 	void begin();
 	size_t write(uint8_t);
 	size_t write(const uint8_t *buf, size_t size);

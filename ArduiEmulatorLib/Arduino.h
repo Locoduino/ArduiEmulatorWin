@@ -10,10 +10,10 @@
 #define ARDUINO_ARCH_AVR
 
 #ifdef ARDUINO_ARCH_AVR
-	//#define ARDUINO_AVR_MEGA
-	//#define __AVR_ATmega2560__
-	#define ARDUINO_AVR_NANO
-	#define __AVR_ATmega328P__
+	#define ARDUINO_AVR_MEGA
+	#define __AVR_ATmega2560__
+	//#define ARDUINO_AVR_NANO
+	//#define __AVR_ATmega328P__
 #endif
 
 //#define pgm_read_byte(TT)			ArduiEmulator::Arduino::_pgm_read_byte(TT)
@@ -177,6 +177,7 @@
 
 #define ISR(NAME)	void NAME##FUNC()
 
+#ifdef ARDUINO_AVR_MEGA
 #define A0		54
 #define A1		55
 #define A2		56
@@ -193,6 +194,7 @@
 #define A13		67
 #define A14		68
 #define A15		69
+#endif
 #endif
 
 #define __attribute__(x)

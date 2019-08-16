@@ -60,6 +60,7 @@ struct Pin
 static Pin VCPins[VCPINNUMBER];
 static int VC_pins[VCPINNUMBER];
 byte dontCheckNextPinAccess = 2;  // 2 when the pins are not initialized !
+int lastKeyPressed;
 
 // Emulator setup -----------------------------------------------------
 void pinSetup()
@@ -70,6 +71,7 @@ void pinSetup()
 		VCPins[i].PinNumber = -1;
 
 	dontCheckNextPinAccess = __FALSE;
+	lastKeyPressed = 0;
 }
 
 Pin* AddPin(int inPin, int inExp, int inState)
@@ -120,6 +122,11 @@ void ErrorMsg(const CString &message)
 		pinSetup();
 
 	NamedPipesSend(DebugMessage, message);
+}
+
+void keyPressed(int inKey)
+{
+	lastKeyPressed = inKey;
 }
 
 // Beware of the COMMANDERS_EVENT_TYPE and MOVE_TYPE modifications !

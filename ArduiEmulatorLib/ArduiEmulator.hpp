@@ -44,6 +44,7 @@ typedef unsigned char	byte;
 //#define NULL	0
 #define PROGMEM
 #define PGM_P   const char *
+#define PROG_CHAR  char
 
 #define CHANGE 1
 #define FALLING 2
@@ -164,6 +165,9 @@ extern int freeMemory();
 void AddExpander(int inPrefix, int inNumber, int inPinType, const CString &inName);
 void ErrorMsg(const CString &message);
 void _pinName(int inPin, int inExpID, const char *inName);
+
+extern int lastKeyPressed;
+void keyPressed(int inKey);
 
 extern void _eventLog(const CString &inPrefix, unsigned long inId, int inEventType, int inData);
 

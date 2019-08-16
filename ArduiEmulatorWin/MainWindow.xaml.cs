@@ -186,5 +186,13 @@ namespace ArduiEmulatorWin
 
 			dlg.ShowDialog();
 		}
+
+		private void ArduiEmulator_KeyDown(object sender, KeyEventArgs e)
+		{
+			string key = e.Key.ToString();
+			key = key.Replace("NumPad", "");
+
+			NamedPipes.PipeSender.Send("KBD " + key);
+		}
 	}
 }

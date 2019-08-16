@@ -285,6 +285,13 @@ bool ParseMessage(const CString &inMessage)
 		}
 	}
 
+	if (tokens[0] == "KBD")
+	{
+		CStringA charstr(tokens[1]);
+		int key = (int) charstr[0];
+		lastKeyPressed = key;
+	}
+
 	return false;
 }
 

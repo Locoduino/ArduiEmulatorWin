@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			  xmlns:local="clr-namespace:ArduiEmulatorWin"
         mc:Ignorable="d"
-        Title="Arduino Emulator" Height="655" Width="900">
+        Title="Arduino Emulator" Height="655" Width="900" KeyDown="ArduiEmulator_KeyDown">
 		<Window.Resources>
 				<local:PinNameConverter x:Key="PinNameConverter" />
 				<local:PinStateConverter x:Key="PinStateConverter" />

@@ -1,5 +1,7 @@
 #include "Ethernet.hpp"
 
+EthernetClass EthernetClass::EthernetInstance;
+														 
 EthernetClass::EthernetClass() {
 		this->dhcp = false;
 		//this->mac = gcnew array<uint8_t>(6);
@@ -106,7 +108,7 @@ EthernetServer
 ************************************************************/
 
 EthernetServer::EthernetServer(uint16_t inPort) { _port = inPort; }
-EthernetClient *EthernetServer::available() { return new EthernetClient(0); }
+EthernetClient &EthernetServer::available() { return *(new EthernetClient(0)); }
 void EthernetServer::begin() {}
 size_t EthernetServer::write(uint8_t) { return 0; }
 size_t EthernetServer::write(const uint8_t *buf, size_t size) { return 0; }
