@@ -3,8 +3,15 @@ This is a program to emulate ARduino. This is a desktop stand alone executable f
 
 Whats New ?
 
+26/08/2019 V2.2.1
+	- Ajout de l'include "stdafx.h" dans arduino.h pour éviter les pb de compilation si stdafx.h n'est pas inclus par tout le monde !
+	- ajout de prototypes manquants des fonctions eeprom_*_block()
+	____________
+	- Include 'stdafx.h' added to arduino.h to avoid linker problems if some sources does not include this file.
+	-	Added eeprom_*_block() missing prototypes.
+
 16/08/2019 V2.2.0
-	- La fenêtre principale remonter maintenant les appuis clavier dans un message 'KBD' NetPipes.
+	- La fenêtre principale remonte maintenant les appuis clavier dans un message 'KBD' NetPipes.
 	- La classe EthernetServer a été remise conforme à l'originale Arduino sur le retour de la fonction available().
 	____________
 	- The emulator window now send a NetPipes message 'KBD' when a key is down on the keyboard.

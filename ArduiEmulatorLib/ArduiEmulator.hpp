@@ -4,6 +4,7 @@
 #define __arduinoEmulator_H__
 //-------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "binary.h"
 #include "math.h"
 #include "stdio.h"

@@ -80,6 +80,10 @@ public:
 	}
 };
 
+void eeprom_write_block(const void* inSrc, void* inDst, size_t inSize);
+void eeprom_read_block(void* inDst, const void* inSrc, size_t inSize);
+void eeprom_update_block(const void* inSrc, void* inDst, size_t inSize);
+
 //-------------------------------------------------------------------
 #endif
 //-------------------------------------------------------------------
