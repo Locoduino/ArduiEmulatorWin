@@ -6,6 +6,21 @@ using System.Threading.Tasks;
 
 namespace ArduiEmulatorWin
 {
+	[Flags]
+	public enum TimerCaps
+	{
+		_8bits = 1 << 0,
+		_16bits = 1 << 1,
+		_32bits = 1 << 2,
+	}
+
+	public class Timer
+	{
+		public TimerCaps Caps;
+		public bool declared;
+		public bool enabled; // started...
+	}
+
 	public class ArduinoModel
 	{
 		public string Name;
@@ -14,9 +29,16 @@ namespace ArduiEmulatorWin
 		public int AnalogMax;
 		public PinFunc[] pinFlags;
 
+		public int TimerNumberMax;
+		public List<Timer> Timers;
+
 		public ArduinoModel()
 		{
+			this.PinNumberMax = 0;
 			this.pinFlags = null;
+
+			this.TimerNumberMax = 0;
+			this.Timers = null;
 		}
 
 		[Flags]

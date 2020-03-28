@@ -37,16 +37,21 @@ namespace ArduiEmulatorWin
 		public int Type;	// INPUT, OUTPUT...
 	}
 
-	public class ArduinoPin : ViewModelBase, IComparable
+	public class ArduinoItem : ViewModelBase, IComparable
 	{
-		static public FullyObservableCollection<ArduinoPin> ArduinoPins;
+		static public FullyObservableCollection<ArduinoItem> ArduinoItems;
 		static public List<Expander> Expanders;
 
-		private int number;
-		private int state;
+		private int number;		// >= 10000 for timers
+		private int state;		// pin : 0/1 or value in analog mode, Timer : Start(1) or Stop(0)
 		protected string formattedName;
 		private string name;
 		private int expID;
+
+		public bool IsTimer 
+		{ 
+			get { return this.number >= 10000; } 
+		}
 
 		public virtual int Number
 		{
@@ -109,11 +114,17 @@ namespace ArduiEmulatorWin
 			{
 				if (string.IsNullOrEmpty(this.name))
 				{
-					this.formattedName = "##" + number.ToString();
+					if (this.IsTimer)
+						this.formattedName = "Timer" + (number-10000).ToString();
+					else
+						this.formattedName = "##" + number.ToString();
 				}
 				else
 				{
-					this.formattedName = number.ToString() + "(" + this.name + ")";
+					if (this.IsTimer)
+						this.formattedName = this.name;
+					else
+						this.formattedName = number.ToString() + "(" + this.name + ")";
 				}
 			}
 			else
@@ -132,8 +143,8 @@ namespace ArduiEmulatorWin
 		
 		public virtual int CompareTo(object o)
 		{
-			ArduinoPin a = this;
-			ArduinoPin b = (ArduinoPin)o;
+			ArduinoItem a = this;
+			var b = (ArduinoItem)o;
 			if (a.expID.CompareTo(b.expID) == 0)
 				return a.number.CompareTo(b.number);
 			return a.expID.CompareTo(b.expID);
@@ -142,11 +153,11 @@ namespace ArduiEmulatorWin
 
 	public partial class Modif_Window_ViewModel : ViewModelBase
 	{
-		public ArduinoPin Add_Content(int inPin, int inExpID, int inState, string inName)
+		public ArduinoItem Add_Content(int inPin, int inExpID, int inState, string inName)
 		{
-			var pin = new ArduinoPin { Number = inPin, ExpID = inExpID, State = inState, Name = inName };
-			ArduinoPin.ArduinoPins.Add(pin);
-			ArduinoPin.ArduinoPins.Sort();
+			var pin = new ArduinoItem { Number = inPin, ExpID = inExpID, State = inState, Name = inName };
+			ArduinoItem.ArduinoItems.Add(pin);
+			ArduinoItem.ArduinoItems.Sort();
 
 			if (inExpID == 0)
 				if (Arduino.arduinoModel.pinFlags[inPin].HasFlag(ArduinoModel.PinFunc.Led))
@@ -157,55 +168,71 @@ namespace ArduiEmulatorWin
 			return pin;
 		}
 
+		public ArduinoItem Add_Timer_Content(int inId, int inState, string inName)
+		{
+			var timer = new ArduinoItem { Number = 10000+inId, State = inState, Name = inName };
+			timer.ExpID = 0;
+			ArduinoItem.ArduinoItems.Add(timer);
+			ArduinoItem.ArduinoItems.Sort();
+
+			NotifyPropertyChangedEvent("AddTimer");
+			return timer;
+		}
+
 		public void Clear_Content()
 		{
-			if (ArduinoPin.ArduinoPins != null)
+			if (ArduinoItem.ArduinoItems != null)
 			{
-				ArduinoPin.Expanders.Clear();
-				ArduinoPin.ArduinoPins.Clear();
+				ArduinoItem.Expanders.Clear();
+				ArduinoItem.ArduinoItems.Clear();
 				Lcd.screen.clear();
 				NotifyPropertyChangedEvent("Clear");
 			}
 		}
 
-		public FullyObservableCollection<ArduinoPin> List_Content
+		public FullyObservableCollection<ArduinoItem> List_Content
 		{
 			get
 			{
-				if (ArduinoPin.ArduinoPins == null)
+				if (ArduinoItem.ArduinoItems == null)
 				{
-					ArduinoPin.Expanders = new List<Expander>();
-					ArduinoPin.ArduinoPins = new FullyObservableCollection<ArduinoPin>();
+					ArduinoItem.Expanders = new List<Expander>();
+					ArduinoItem.ArduinoItems = new FullyObservableCollection<ArduinoItem>();
 				}
 
-				return ArduinoPin.ArduinoPins;
+				return ArduinoItem.ArduinoItems;
 			}
-			set { ArduinoPin.ArduinoPins = value; }
+			set { ArduinoItem.ArduinoItems = value; }
 		}
 
 		internal void display()
 		{
-			foreach (ArduinoPin txtvalue in ArduinoPin.ArduinoPins)
+			foreach (ArduinoItem txtvalue in ArduinoItem.ArduinoItems)
 			{
 				MessageBox.Show(txtvalue.Number + " " + txtvalue.Name);
 			}
 		}
 
-		public ArduinoPin GetPin(int inPin, int inExpID = 0)
+		public ArduinoItem GetPin(int inPin, int inExpID = 0)
 		{
-			if (ArduinoPin.ArduinoPins == null)
+			if (ArduinoItem.ArduinoItems == null)
 				return null;
-			foreach (var pin in ArduinoPin.ArduinoPins)
+			foreach (var pin in ArduinoItem.ArduinoItems)
 				if (pin.Number == inPin && pin.ExpID == inExpID)
 					return pin;
 			return null;
 		}
 
-		public ArduinoPin GetPin(string inName)
+		public ArduinoItem GetTimer(int inPin)
 		{
-			if (ArduinoPin.ArduinoPins == null)
+			return this.GetPin(10000 + inPin, 0);
+		}
+
+		public ArduinoItem GetPin(string inName)
+		{
+			if (ArduinoItem.ArduinoItems == null)
 				return null;
-			foreach (var pin in ArduinoPin.ArduinoPins)
+			foreach (var pin in ArduinoItem.ArduinoItems)
 				if (pin.Name == inName)
 					return pin;
 			return null;
@@ -213,9 +240,9 @@ namespace ArduiEmulatorWin
 
 		public Expander GetExpander(int inExpID)
 		{
-			if (ArduinoPin.Expanders == null)
+			if (ArduinoItem.Expanders == null)
 				return null;
-			foreach (var expander in ArduinoPin.Expanders)
+			foreach (var expander in ArduinoItem.Expanders)
 				if (expander.ID == inExpID)
 					return expander;
 			return null;
@@ -223,7 +250,7 @@ namespace ArduiEmulatorWin
 
 		public int GetState(int inPin, int inExpID = 0)
 		{
-			ArduinoPin pin = GetPin(inPin, inExpID);
+			ArduinoItem pin = GetPin(inPin, inExpID);
 			if (pin == null)
 				return Arduino.UNDEFINEDSTATE;
 
@@ -232,7 +259,7 @@ namespace ArduiEmulatorWin
 
 		public string GetName(int inPin, int inExpID = 0)
 		{
-			ArduinoPin pin = GetPin(inPin, inExpID);
+			ArduinoItem pin = GetPin(inPin, inExpID);
 			if (pin == null)
 				return "";
 
@@ -241,7 +268,7 @@ namespace ArduiEmulatorWin
 
 		public bool SetName(int inPin, int inExpID, string inName)
 		{
-			ArduinoPin pin = GetPin(inPin, inExpID);
+			ArduinoItem pin = GetPin(inPin, inExpID);
 			if (pin == null)
 			{
 				pin = Add_Content(inPin, inExpID, Arduino.UNDEFINEDSTATE, inName);
@@ -254,14 +281,41 @@ namespace ArduiEmulatorWin
 			return true;
 		}
 
+		public bool SetTimerName(int inPin, string inName)
+		{
+			ArduinoItem timer = GetTimer(inPin);
+			if (timer == null)
+			{
+				timer = Add_Timer_Content(inPin, Arduino.TIMER_STOPPED, inName);
+			}
+			if (inName.Length > 10)
+				timer.Name = inName.Substring(0, 10);
+			else
+				timer.Name = inName;
+			NotifyPropertyChangedEvent("Name");
+			return true;
+		}
+
 		public bool SetState(int inPin, int inExpID, int inState)
 		{
-			ArduinoPin pin = GetPin(inPin, inExpID);
+			ArduinoItem pin = GetPin(inPin, inExpID);
 			if (pin == null)
 			{
 				pin = Add_Content(inPin, inExpID, Arduino.UNDEFINEDSTATE, string.Empty);
 			}
 			pin.State = inState;
+			NotifyPropertyChangedEvent("State");
+			return true;
+		}
+
+		public bool SetTimerState(int inPin, int inState)
+		{
+			ArduinoItem timer = GetTimer(inPin);
+			if (timer == null)
+			{
+				timer = Add_Timer_Content(inPin, Arduino.TIMER_STOPPED, string.Empty);
+			}
+			timer.State = inState;
 			NotifyPropertyChangedEvent("State");
 			return true;
 		}

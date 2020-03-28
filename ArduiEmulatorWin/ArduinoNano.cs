@@ -38,7 +38,17 @@ namespace ArduiEmulatorWin
 			this.pinFlags[18] = PinFunc.Digital | PinFunc.AnalogRead | PinFunc.I2C;	//A4
 			this.pinFlags[19] = PinFunc.Digital | PinFunc.AnalogRead | PinFunc.I2C;	//A5
 			this.pinFlags[20] = PinFunc.AnalogRead;	//A6
-			this.pinFlags[21] = PinFunc.AnalogRead;	//A7
+			this.pinFlags[21] = PinFunc.AnalogRead; //A7
+
+			this.TimerNumberMax = 3;
+			this.Timers = new List<Timer>(this.TimerNumberMax);
+			this.Timers.Add(new Timer());
+			this.Timers.Add(new Timer());
+			this.Timers.Add(new Timer());
+
+			this.Timers[0].Caps = TimerCaps._8bits;
+			this.Timers[1].Caps = TimerCaps._16bits;
+			this.Timers[2].Caps = TimerCaps._8bits;
 		}
 	}
 }

@@ -9,6 +9,7 @@ enum MessagesTypes
 	PinMessagePinMode,
 	PinMessagePinState,
 	PinMessagePinName,
+	TimerMessage,
 	NewExpander,
 	LcdMessage
 };
@@ -21,6 +22,7 @@ extern void NamedPipesSend(MessagesTypes, int inPin, int inExpID, const CString 
 extern void NamedPipesSend(MessagesTypes, int inPin, int inExpID, int inInt);
 extern void NamedPipesSend(MessagesTypes, int inPin, int inExpID, int inInt1, int inInt2);
 extern void NamedPipesSend(MessagesTypes, int int1, int int2, int int3, const CString& mess);
+extern void NamedPipesSend(MessagesTypes, int inId, char inState);
 extern int NamedPipesSenderConnect();
 extern int NamedPipesIdle();
 extern void NamedPipesIdleReset();

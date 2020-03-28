@@ -137,7 +137,12 @@ namespace ArduiEmulatorWin
 
 		private void SerialButton_Click(object sender, RoutedEventArgs e)
 		{
-			this.Send(this.SerialInput.Text);
+			this.Send("SER " + this.SerialInput.Text);
+			if (this.DebugPipeMode)
+			{
+				string mess = "Pipe Send : " + "SER " + this.SerialInput.Text;
+				this.debug(mess);
+			}
 			this.SerialInput.Text = string.Empty;
 		}
 
@@ -151,13 +156,12 @@ namespace ArduiEmulatorWin
 		private void PinsButton_Click(object sender, RoutedEventArgs e)
 		{
 			this.ParseMessage(this.SerialInput.Text);
-			//this.mModifWindowVM.lcdLine1 = this.SerialInput.Text;
 			this.SerialInput.Text = string.Empty;
 		}
 
 		private void ListPins_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			var selection = this.ListPins.SelectedItem as ArduinoPin;
+			var selection = this.ListPins.SelectedItem as ArduinoItem;
 
 			if (selection != null)
 			{
@@ -165,12 +169,22 @@ namespace ArduiEmulatorWin
 				{
 					selection.State = Arduino.VS_LOW;
 					NamedPipes.PipeSender.Send("PS " + selection.Number + " LOW");
+					if (this.DebugPipeMode)
+					{
+						string mess = "Pipe Send : " + "PS " + selection.Number + " LOW";
+						this.debug(mess);
+					}
 				}
 				else 
 				if (selection.State == Arduino.VS_LOW)
 				{
 					selection.State = Arduino.VS_HIGH;
 					NamedPipes.PipeSender.Send("PS " + selection.Number + " HIGH");
+					if (this.DebugPipeMode)
+					{
+						string mess = "Pipe Send : " + "PS " + selection.Number + " HIGH";
+						this.debug(mess);
+					}
 				}
 			}
 		}
@@ -189,10 +203,19 @@ namespace ArduiEmulatorWin
 
 		private void ArduiEmulator_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (this.SerialInput.IsFocused)
+				return;
+
 			string key = e.Key.ToString();
 			key = key.Replace("NumPad", "");
 
 			NamedPipes.PipeSender.Send("KBD " + key);
+
+			if (this.DebugPipeMode)
+			{
+				string mess = "Pipe Send : " + "KBD " + key;
+				this.debug(mess);
+			}
 		}
 	}
 }

@@ -151,7 +151,15 @@ void NamedPipesSend(MessagesTypes inType, int inPin, int inExpID, int inInt)
 	NamedPipesSend(inType, mess);
 }
 
-void NamedPipesSend(MessagesTypes inType, const CString &mess) 
+void NamedPipesSend(MessagesTypes inType, int inId, char inState)
+{
+	CString mess;
+
+	mess.Format(_T("%d \'%c\'"), inId, (char)inState);
+	NamedPipesSend(inType, mess);
+}
+
+void NamedPipesSend(MessagesTypes inType, const CString &mess)
 {
 	CString str;
 
@@ -194,6 +202,7 @@ void NamedPipesSend(MessagesTypes inType, const CString &mess)
 	case PinMessagePinName:		str.Format(_T("PN %s"), (LPCTSTR)mess);			break;
 	case NewExpander:					str.Format(_T("EXP %s"), (LPCTSTR)mess);			break;
 	case LcdMessage:					str.Format(_T("LCD %s"), (LPCTSTR)mess);			break;
+	case TimerMessage:				str.Format(_T("TI %s"), (LPCTSTR)mess);			break;
 	}
 
 	if (!initialized)
@@ -288,8 +297,13 @@ bool ParseMessage(const CString &inMessage)
 	if (tokens[0] == "KBD")
 	{
 		CStringA charstr(tokens[1]);
-		int key = (int) charstr[0];
+		int key = (int)charstr[0];
 		lastKeyPressed = key;
+	}
+
+	if (tokens[0] == "SER")
+	{
+		Serial.received(inMessage.Mid(4));
 	}
 
 	return false;

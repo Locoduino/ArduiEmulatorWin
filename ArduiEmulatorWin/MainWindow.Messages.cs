@@ -27,13 +27,16 @@ namespace ArduiEmulatorWin
 		//												where pinnb is a pin number, 
 		//												where expid is an expander id, 0 for Arduino pin.
 		//												and name the new name of the pin.
-		// SC "string"						: Serial print
+		// SC "string"									Serial print
 		//												where "string" has to be printed to the serial console without the '"' ...
-		// DB "string"						: Debug print
+		// DB "string"									Debug print
 		//												where "string" has to be printed to the debug console without the '"' ...
 		// 
-		// RS "arduino"						: Reset the emulator to empty default, to start a new emulation. "arduino" argument is an optional information to set the current arduino model.
-		// TP 										:	Internally declare some pins and expander pins to test the emulator...
+		// RS "arduino"									Reset the emulator to empty default, to start a new emulation. "arduino" argument is an optional information to set the current arduino model.
+		// TP 											Internally declare some pins and expander pins to test the emulator...
+		// TI id state									Timer 
+		//												id of the timer		
+		//												state : 'D'eclared, 'R'emoved, 'B'egin, 'E'nd
 
 		public bool ParseMessage(string inMessage)
 		{
@@ -93,7 +96,7 @@ namespace ArduiEmulatorWin
 							exp1.Name = items[4].Substring(1, items[4].Length - 2);
 							exp1.NbPin = pinNb;
 							exp1.Type = type;
-							ArduinoPin.Expanders.Add(exp1);
+							ArduinoItem.Expanders.Add(exp1);
 							return true;
 						}
 					}
@@ -187,13 +190,14 @@ namespace ArduiEmulatorWin
 						}
 					}
 					break;
+
 				case "DB":  // debug print
 					if (items.Length > 1)
 					{
-						string mess = inMessage.Remove(0, 3);
+						string mess = items[1];
 						if (mess[0] == '\"' && mess.EndsWith("\""))
 						{
-							this.debug(mess.Substring(1, mess.Length - 2));
+							this.serial_log(mess.Substring(1, mess.Length - 2));
 							return true;
 						}
 					}
@@ -210,14 +214,14 @@ namespace ArduiEmulatorWin
 					exp.Name = "74HC595-1";
 					exp.NbPin = 8;
 					exp.Type = Arduino.OUTPUT;
-					ArduinoPin.Expanders.Add(exp);
+					ArduinoItem.Expanders.Add(exp);
 
 					exp = new Expander();
 					exp.ID = 101;
 					exp.Name = "74HC595-2";
 					exp.NbPin = 8;
 					exp.Type = Arduino.OUTPUT;
-					ArduinoPin.Expanders.Add(exp);
+					ArduinoItem.Expanders.Add(exp);
 
 					Arduino.pinMode(3, 0, Arduino.INPUT);
 					Arduino.pinMode(4, 0, Arduino.INPUT_PULLUP);
@@ -237,6 +241,43 @@ namespace ArduiEmulatorWin
 
 				case "LCD":
 					return Lcd.ParseMessage(items);
+
+				case "TI":
+					if (items.Length == 2)
+					{
+						int id = int.Parse(items[1]);
+						Arduino.timerState(id, Arduino.TIMER_STOPPED);
+					}
+					if (items.Length > 2)
+					{
+						int id = int.Parse(items[1]);
+						char state = items[2][1];
+
+						if (id >= 0 && id < Arduino.arduinoModel.TimerNumberMax)
+						{
+							switch (state)
+							{
+								case 'D':
+									Arduino.arduinoModel.Timers[id].declared = true;
+									Arduino.timerState(id, Arduino.TIMER_STOPPED);
+									break;
+								case 'R':
+									Arduino.arduinoModel.Timers[id].declared = false;
+									Arduino.timerState(id, Arduino.TIMER_STOPPED);
+									break;
+								case 'B':
+									Arduino.arduinoModel.Timers[id].enabled = true;
+									Arduino.timerState(id, Arduino.TIMER_STARTED);
+									break;
+								case 'E':
+									Arduino.arduinoModel.Timers[id].enabled = false;
+									Arduino.timerState(id, Arduino.TIMER_STOPPED);
+									break;
+							}
+							return true;
+						}
+					}
+					break;
 			}
 
 			return false;

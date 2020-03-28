@@ -21,6 +21,9 @@ namespace ArduiEmulatorWin
 		public const int OUTPUT_RESERVED = -4;
 		public const int OUTPUT_INTERRUPT = -5;
 
+		public const int TIMER_STARTED = 1;
+		public const int TIMER_STOPPED = 0;
+
 		public static bool dontCheckNextPinAccess;
 		public static ArduinoModel arduinoModel = null;
 
@@ -136,7 +139,7 @@ namespace ArduiEmulatorWin
 			if (CheckPin(inPin, inExpID) == false)
 				return false;
 
-			ArduinoPin pin = ArduinoWindow.MainForm.mModifWindowVM.GetPin(inPin, inExpID);
+			ArduinoItem pin = ArduinoWindow.MainForm.mModifWindowVM.GetPin(inPin, inExpID);
 
 			if (pin == null)
 			{
@@ -163,6 +166,11 @@ namespace ArduiEmulatorWin
 			}
 
 			return ArduinoWindow.MainForm.mModifWindowVM.SetState(inPin, inExpID, inState);
+		}
+
+		public static bool timerState(int inId, int inState)
+		{
+			return ArduinoWindow.MainForm.mModifWindowVM.SetTimerState(inId, inState);
 		}
 	}
 }

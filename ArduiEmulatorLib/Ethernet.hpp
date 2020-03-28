@@ -5,7 +5,8 @@
 
 //#include "Dhcp.h"
 #include "Arduino.h"
-#include "IPAddress.hpp"
+#include "Client.h"
+#include "IPAddress.h"
 
 class EthernetClass
 {
@@ -40,7 +41,7 @@ public:
 
 #define Ethernet EthernetClass::EthernetInstance
 
-class EthernetClient {
+class EthernetClient : public Client {
 
 private:
 	static uint16_t _srcport;

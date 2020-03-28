@@ -25,8 +25,8 @@ public:
 	void end();
 	void flush();
 
-	void print(const char *line);
-	void println(const char *line);
+	void print(const char line[]);
+	void println(const char line[]);
 	void print(const CString &line);
 	void println(const CString &line);
 	void print(int value);
@@ -34,6 +34,7 @@ public:
 	void println(int value);
 	void println(int value, int i);
 
+	void received(const CString &received);
 	int available();
 	char read();
 	char peek();

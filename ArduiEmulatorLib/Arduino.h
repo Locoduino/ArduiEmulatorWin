@@ -10,65 +10,11 @@
 #define ARDUINO_ARCH_AVR
 
 #ifdef ARDUINO_ARCH_AVR
-	#define ARDUINO_AVR_MEGA
-	#define __AVR_ATmega2560__
-	//#define ARDUINO_AVR_NANO
-	//#define __AVR_ATmega328P__
+	//#define ARDUINO_AVR_MEGA
+	//#define __AVR_ATmega2560__
+	#define ARDUINO_AVR_NANO
+	#define __AVR_ATmega328P__
 #endif
-
-//#define pgm_read_byte(TT)			ArduiEmulator::Arduino::_pgm_read_byte(TT)
-
-/*
-#define pgm_read_word(TT)			ArduiEmulator::Arduino::_pgm_read_word(TT)
-#define pgm_read_byte(BUFF)			((char)*(BUFF))
-#define pgm_read_byte_near(BUFF)	((char)*(BUFF))
-
-#define pinSetup()					ArduiEmulator::Arduino::_pinSetup()
-#define pinMode(PIN, MODE)			ArduiEmulator::Arduino::_pinMode(PIN, MODE)
-#define digitalWrite(PIN, VAL)		ArduiEmulator::Arduino::_digitalWrite(PIN, VAL)
-#define digitalRead(PIN)			ArduiEmulator::Arduino::_digitalRead(PIN)
-#define analogWrite(PIN, VAL)		ArduiEmulator::Arduino::_analogWrite(PIN, VAL)
-#define analogRead(PIN)				ArduiEmulator::Arduino::_analogRead(PIN)
-#define millis()					ArduiEmulator::Arduino::_millis()
-#define micros()					ArduiEmulator::Arduino::_micros()
-#define delay(TT)					ArduiEmulator::Arduino::_delay(TT)
-#define delayMicroseconds(TT)		ArduiEmulator::Arduino::_delayMicroseconds(TT)
-
-#define map(v1, v2, v3, v4, v5)		ArduiEmulator::Arduino::_map(v1, v2, v3, v4, v5)
-#define power(VAL, EXP)				ArduiEmulator::Arduino::_power(VAL, EXP)
-
-#define noInterrupts()				ArduiEmulator::Arduino::_noInterrupts()
-#define interrupts()				ArduiEmulator::Arduino::_interrupts()
-#define attachInterrupt(TT, FF, MM)	ArduiEmulator::Arduino::_attachInterrupt(TT, FF, MM)
-#define detachInterrupt(TT)			ArduiEmulator::Arduino::_detachInterrupt(TT)
-#define digitalPinToInterrupt(TT)	ArduiEmulator::Arduino::_digitalPinToInterrupt(TT)	 */
-
-//#define makeWord(WW)				ArduiEmulator::Arduino::_makeWord(WW)
-/*#define makeWord(HH, LL)			ArduiEmulator::Arduino::_makeWord(WW, LL)
-
-#define freeMemory()				ArduiEmulator::Arduino::_freeMemory()
-
-#define pinName(PIN, NAME)			ArduiEmulator::Arduino::__pinName(PIN, NAME)
-
-#define eeprom_read_byte(AA)							EEPROMClass::EEPROMInstance._eeprom_read_byte(AA)
-#define eeprom_write_byte(AA, VV)						EEPROMClass::EEPROMInstance._eeprom_write_byte(AA, VV)
-#define eeprom_update_byte(AA, VV)						EEPROMClass::EEPROMInstance._eeprom_update_byte(AA, VV)
-#define eeprom_write_block(__SRC, __DST, __SIZE)		EEPROMClass::EEPROMInstance._eeprom_write_block((__SRC), (__DST), (__SIZE))
-#define eeprom_read_block(__SRC, __DST, __SIZE)			EEPROMClass::EEPROMInstance._eeprom_read_block(__SRC, __DST, __SIZE)
-#define eeprom_update_block(__SRC, __DST, __SIZE)		EEPROMClass::EEPROMInstance._eeprom_update_block(__SRC, __DST, __SIZE)
-
-#define pinName(PIN, NAME)			ArduiEmulator::Arduino::__pinName(PIN, NAME)*/
-
-//#define strcpy_P(D, S)				strcpy(D, S)
-
-/*#define HardwareSerial		SerialClass
-#define Serial		SerialClass::SerialInstance
-#define Serial1		SerialClass::SerialInstance
-#define Serial2		SerialClass::SerialInstance
-#define Serial3		SerialClass::SerialInstance*/
-
-//#include "EEPROM.h"
-//#define EEPROM		EEPROMClass::EEPROMInstance
 
 #ifdef ARDUINO_ARCH_AVR
 #define NUM_DIGITAL_PINS            70
@@ -108,7 +54,7 @@
 #define	CS31		1
 #define	CS32		2
 
-#define	WGM00		0
+/*efine	WGM00		0
 #define	WGM01		1
 #define	WGM02		2
 #define	WGM03		3
@@ -171,7 +117,7 @@
 #define PORTD		_PORTD
 #define PORTE		_PORTE
 #define PORTF		_PORTF
-
+*/
 //#define __heap_start	ArduiEmulator::Arduino::__heap_start__
 //#define __brkval		ArduiEmulator::Arduino::__brkval__
 
@@ -195,12 +141,28 @@
 #define A14		68
 #define A15		69
 #endif
+
+#ifdef ARDUINO_AVR_NANO
+#define A0		23
+#define A1		24
+#define A2		25
+#define A3		26
+#define A4		27
+#define A5		28
+#define A6		19
+#define A7		22
+#endif
+
+#include "io.h"
+//#include "avr/iocanxx.h"
+
 #endif
 
 #define __attribute__(x)
-#define E2END		10000
+//efine E2END		10000
 
 #ifdef ARDUINO_ARCH_ESP32
+
 #define EXTERNAL_NUM_INTERRUPTS 16
 #define NUM_DIGITAL_PINS        40
 #define NUM_ANALOG_INPUTS       16
@@ -250,8 +212,52 @@ static const uint8_t T9 = 32;
 
 static const uint8_t DAC1 = 25;
 static const uint8_t DAC2 = 26; 
+
+struct hw_timer_t
+{
+	byte id;
+	int prescaler;
+	int cntValue;
+	int alarmValue;
+	bool countUp;
+	bool autoReload;
+	bool edgeValue;
+
+	void (*funcToCall)();
+
+	bool enabled;
+	bool alarmEnabled;
+	int currentValue;
+
+	hw_timer_t();
+};
+
+#define IRAM_ATTR
+
+hw_timer_t* timerBegin(int id, int prescaler, bool restart);
+void timerAttachInterrupt(hw_timer_t *pTimer, void (*funcToCall)(), bool edgeValue);
+void timerAlarmWrite(hw_timer_t *pTimer, int timerDelay, bool alwaysRestart);
+void timerWrite(hw_timer_t*, int);
+void timerAlarmEnable(hw_timer_t*);
+void timerStart(hw_timer_t*);
+void timerStop(hw_timer_t *);
+void timerAlarmDisable(hw_timer_t*);
+void timerDetachInterrupt(hw_timer_t*);
+void timerEnd(hw_timer_t*);
+
+void timersLoop(void);
 #endif
+
+#define digitalPinToPort(P) ( P )
+#define digitalPinToBitMask(P) ( P )
+#define digitalPinToTimer(P) ( P )
+#define analogInPinToBit(P) (P)
+#define portOutputRegister(P) ( (volatile uint8_t *)( P ) )
+#define portInputRegister(P) ( (volatile uint8_t *)( P ) )
+#define portModeRegister(P) ( (volatile uint8_t *)( P ) )
 
 //-------------------------------------------------------------------
 #endif
+
+
 //-------------------------------------------------------------------

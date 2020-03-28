@@ -25,12 +25,12 @@ void SerialClass::flush()
 	this->memo = "";
 }
 
-void SerialClass::print(const char *line)
+void SerialClass::print(const char line[])
 {
 	this->memo.Append(CString(line));
 }
 
-void SerialClass::println(const char *line)
+void SerialClass::println(const char line[])
 {
 	this->memo.Append(CString(line));
 	NamedPipesSend(MessagesTypes::SerialMessage, this->memo);
@@ -115,4 +115,9 @@ char SerialClass::peek()
 	}
 
 	return (char)this->inputBuffer[0];
+}
+
+void SerialClass::received(const CString& buffer)
+{
+	this->inputBuffer = buffer;
 }

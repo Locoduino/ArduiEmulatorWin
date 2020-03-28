@@ -106,7 +106,8 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;VISUALSTUDIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(VisualStudioDir)\..\..\..\ArduiEmulator\ArduiEmulator</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,12 +154,14 @@
   <ItemGroup>
     <ClCompile Include="ArduiEmulator.cpp" />
     <ClCompile Include="EEPROM.cpp" />
+    <ClCompile Include="Esp32Emulator.cpp" />
     <ClCompile Include="Ethernet.cpp" />
     <ClCompile Include="IPAddress.cpp" />
     <ClCompile Include="LiquidCrystal.cpp" />
     <ClCompile Include="NamedPipes.cpp" />
     <ClCompile Include="Serial.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="WiFi.cpp" />
     <ClCompile Include="WString.cpp" />
     <ClCompile Include="Wire.cpp" />
   </ItemGroup>
@@ -166,13 +169,27 @@
     <ClInclude Include="ArduiEmulator.hpp" />
     <ClInclude Include="Arduino.h" />
     <ClInclude Include="binary.h" />
+    <ClInclude Include="BluetoothSerial.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="EEPROM.hpp" />
+    <ClInclude Include="esp_err.h" />
+    <ClInclude Include="esp_event.h" />
+    <ClInclude Include="esp_interface.h" />
+    <ClInclude Include="esp_wifi.h" />
+    <ClInclude Include="esp_wifi_types.h" />
     <ClInclude Include="Ethernet.h" />
     <ClInclude Include="Ethernet.hpp" />
     <ClInclude Include="NamedPipes.h" />
+    <ClInclude Include="Print.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="WiFi.h" />
+    <ClInclude Include="WiFiClient.h" />
+    <ClInclude Include="WiFiGeneric.h" />
+    <ClInclude Include="WiFiServer.h" />
+    <ClInclude Include="WiFiType.h" />
     <ClInclude Include="WString.h" />
-    <ClInclude Include="IPAddress.hpp" />
+    <ClInclude Include="IPAddress.h" />
     <ClInclude Include="LiquidCrystal.h" />
     <ClInclude Include="LiquidCrystal.hpp" />
     <ClInclude Include="Serial.hpp" />

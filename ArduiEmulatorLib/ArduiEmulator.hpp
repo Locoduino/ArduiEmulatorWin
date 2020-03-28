@@ -21,11 +21,31 @@ typedef short 	int16_t;
 #define boolean			bool
 typedef unsigned char	byte;
 
-#define strcpy_P(d, s)	strcpy_s(d, this->sizex + 1, s)
+/*#define strcpy_P(d, s)	strcpy_s(d, this->sizex + 1, s)
 #define memcpy_P(d, s, size)	memcpy(d, s, size)
 #define strcmp_P(d, s)	strcmp(d, s)
 #define strncmp_P(d, s, l)	strncmp(d, s, l)
-#define strlen_P(s)	strlen(s)
+#define strlen_P(s)	strlen(s)*/
+#define memcmp_P      memcmp
+#define memccpy_P     memccpy
+#define memmem_P      memmem
+#define memcpy_P      memcpy
+#define strcpy_P      strcpy_s
+#define strncpy_P     strncpy
+#define strcat_P      strcat
+#define strncat_P     strncat
+#define strcmp_P      strcmp
+#define strncmp_P     strncmp
+#define strcasecmp_P  strcasecmp
+#define strncasecmp_P strncasecmp
+#define strlen_P      strlen
+#define strnlen_P     strnlen
+#define strstr_P      strstr
+#define printf_P      printf
+#define sprintf_P     sprintf
+#define snprintf_P    snprintf
+#define vsnprintf_P   vsnprintf
+
 
 #define HIGH	1
 #define LOW		0
@@ -39,9 +59,13 @@ typedef unsigned char	byte;
 #define OUTPUT_RESERVED		-4
 #define OUTPUT_INTERRUPT	-5
 
-#define DEC		1
-#define BIN		2
-#define HEX		3
+#define DEC 10
+#define HEX 16
+#define OCT 8
+#ifdef BIN // Prevent warnings if BIN is previously defined in "iotnx4.h" or similar
+#undef BIN
+#endif
+#define BIN 2
 //#define NULL	0
 #define PROGMEM
 #define PGM_P   const char *
@@ -58,7 +82,7 @@ typedef unsigned char	byte;
 #define NOT_AN_INTERRUPT -1
 #define NOT_ON_TIMER 0
 
-#define F(__stringConstant)	__stringConstant
+#define F(__stringConstant)	(__stringConstant)
 #define __FlashStringHelper	char
 
 typedef void (*pinEvent)(int inPin);
@@ -171,6 +195,9 @@ extern int lastKeyPressed;
 void keyPressed(int inKey);
 
 extern void _eventLog(const CString &inPrefix, unsigned long inId, int inEventType, int inData);
+
+void emulatorSetup();
+void emulatorLoop();
 
 #define __TRUE	1
 #define __FALSE	0

@@ -5,6 +5,7 @@
 #include <thread>
 
 #include "ArduiEmulator.hpp"
+#include "Arduino.h"
 #include "NamedPipes.h"
 
 long int _TCCR0A;
@@ -452,4 +453,22 @@ void _pinName(int inPin, int inExpID, const char *inName)
 {
 	CString str = CString(inName);
 	NamedPipesSend(MessagesTypes::PinMessagePinName, inPin, inExpID, str);
+}
+
+void emulatorSetup()
+{
+	NamedPipesBegin(L"\\\\.\\pipe\\ToArduino", L"\\\\.\\pipe\\FromArduino");
+
+	NamedPipesSend(MessagesTypes::Reset, _T(""));
+
+	pinSetup();
+}
+
+void emulatorLoop()
+{
+	NamedPipesIdle();
+
+#ifdef ARDUINO_ARCH_ESP32
+	timersLoop();
+#endif
 }
