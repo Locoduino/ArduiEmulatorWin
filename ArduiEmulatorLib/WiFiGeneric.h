@@ -72,9 +72,9 @@ class WiFiGenericClass
   public:
     WiFiGenericClass() {}
 
-    wifi_event_id_t onEvent(WiFiEventCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX) {}
-    wifi_event_id_t onEvent(WiFiEventFuncCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX) {}
-    wifi_event_id_t onEvent(WiFiEventSysCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX) {}
+    wifi_event_id_t onEvent(WiFiEventCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX) { return 0; }
+    wifi_event_id_t onEvent(WiFiEventFuncCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX) { return 0; }
+    wifi_event_id_t onEvent(WiFiEventSysCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX) { return 0; }
     void removeEvent(WiFiEventCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX){}
     void removeEvent(WiFiEventSysCb cbEvent, system_event_id_t event = SYSTEM_EVENT_MAX){}
     void removeEvent(wifi_event_id_t id){}
@@ -110,8 +110,8 @@ class WiFiGenericClass
   public:
     static int hostByName(const char *aHostname, IPAddress &aResult){return 0; }
 
-    static IPAddress calculateNetworkID(IPAddress ip, IPAddress subnet){return IPAddress::INADDR_NONE; }
-    static IPAddress calculateBroadcast(IPAddress ip, IPAddress subnet){return IPAddress::INADDR_NONE; }
+    static IPAddress calculateNetworkID(IPAddress ip, IPAddress subnet){return INADDR_NONE; }
+    static IPAddress calculateBroadcast(IPAddress ip, IPAddress subnet){return INADDR_NONE; }
     static uint8_t calculateSubnetCIDR(IPAddress subnetMask){return 0; }
 
   protected:

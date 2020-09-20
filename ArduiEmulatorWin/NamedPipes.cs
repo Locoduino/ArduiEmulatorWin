@@ -56,10 +56,10 @@ namespace NamedPipes
                 // End waiting for the connection
 				pipeServer.EndWaitForConnection(iar);
 
-                byte[] buffer = new byte[255];
+                byte[] buffer = new byte[1000];
 
                 // Read the incoming message
-                int count = pipeServer.Read(buffer, 0, 255);
+                int count = pipeServer.Read(buffer, 0, 1000);
                 
                 // Convert byte buffer to string
                 string stringData = Encoding.Unicode.GetString(buffer, 0, buffer.Length);

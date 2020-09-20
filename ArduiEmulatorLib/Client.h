@@ -19,9 +19,10 @@
 
 #ifndef client_h
 #define client_h
+#include "Print.h"
 #include "IPAddress.h"
 
-class Client {
+class Client : public Print {
 
 public:
   virtual int connect(IPAddress ip, uint16_t port) =0;

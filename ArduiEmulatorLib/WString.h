@@ -1,5 +1,7 @@
 #pragma once
 
+class StringSumHelper;
+
 class String
 {
 public:
@@ -107,7 +109,7 @@ public:
 		return (*this);
 	}
 
-/*	friend StringSumHelper & operator +(const StringSumHelper &lhs, const String &rhs);
+	friend StringSumHelper & operator +(const StringSumHelper &lhs, const String &rhs);
 	friend StringSumHelper & operator +(const StringSumHelper &lhs, const char *cstr);
 	friend StringSumHelper & operator +(const StringSumHelper &lhs, char c);
 	friend StringSumHelper & operator +(const StringSumHelper &lhs, unsigned char num);
@@ -117,7 +119,7 @@ public:
 	friend StringSumHelper & operator +(const StringSumHelper &lhs, unsigned long num);
 	friend StringSumHelper & operator +(const StringSumHelper &lhs, float num);
 	friend StringSumHelper & operator +(const StringSumHelper &lhs, double num);
- */
+ 
 	int compareTo(const String &s) const;
 	unsigned char equals(const String &s) const;
 	unsigned char equals(const char *cstr) const;

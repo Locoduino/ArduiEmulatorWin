@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 #include "IPAddress.h"
-//#include "Printable.h"
+#include "Printable.h"
 //#include "WString.h"
-
-// A class to make it easier to handle and pass around IP addresses
 
 void IPAddress::bytesToDword()
 	{
@@ -45,10 +43,10 @@ void IPAddress::DwordToBytes()
 	}
 
 IPAddress::IPAddress()
-	{
-		//this->bytes = gcnew array<uint8_t>(4);
-		this->dword = 0;
-	}
+{
+	//this->bytes = gcnew array<uint8_t>(4);
+	this->dword = 0;
+}
 
 IPAddress::IPAddress(uint8_t first_octet, uint8_t second_octet, uint8_t third_octet, uint8_t fourth_octet)
 	{
@@ -88,13 +86,13 @@ bool IPAddress::operator==(const uint8_t* addr)
 			this->bytes[2] == addr[2] && this->bytes[3] == addr[3];
 	}
 
-	// Overloaded index operator to allow getting and setting individual octets of the address
+// Overloaded index operator to allow getting and setting individual octets of the address
 uint8_t IPAddress::operator[](int index)
-	{
-		return this->bytes[index];
-	}
+{
+	return this->bytes[index];
+}
 
-	// Overloaded copy operators to allow initialisation of IPAddress objects from other types
+// Overloaded copy operators to allow initialisation of IPAddress objects from other types
 IPAddress &IPAddress::operator=(const uint8_t *address) {
 		this->bytes[0] = address[0];
 		this->bytes[1] = address[1];
@@ -114,3 +112,16 @@ IPAddress &IPAddress::operator=(uint32_t address)
 
 		return *this;
 	}
+
+size_t IPAddress::printTo(Print& p) const
+{
+	size_t n = 0;
+	/*for (int i = 0; i < 3; i++)
+	{
+		n += p.print(this->bytes[i], DEC);
+		n += p.print('.');
+	}
+	n += p.print(this->bytes[3], DEC);*/
+	return n;
+}
+

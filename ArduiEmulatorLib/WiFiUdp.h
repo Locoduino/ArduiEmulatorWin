@@ -35,9 +35,9 @@
 #ifndef _WIFIUDP_H_
 #define _WIFIUDP_H_
 
-#include <Arduino.h>
-#include <Udp.h>
-#include <cbuf.h>
+#include "Arduino.h"
+#include "Udp.h"
+//#include <cbuf.h>
 
 class WiFiUDP : public UDP {
 public:
@@ -61,7 +61,7 @@ public:
   int read(char* buffer, size_t len){return 0;}
   int peek(){return 0;}
   void flush(){}
-  IPAddress remoteIP(){return IPAddress::INADDR_NONE; }
+  IPAddress remoteIP(){return INADDR_NONE; }
   uint16_t remotePort(){return 0;}
 };
 

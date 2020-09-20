@@ -24,21 +24,21 @@
 
 #include <stdint.h>
 
-//#include "Print.h"
+#include "Print.h"
 #include "IPAddress.h"
 //#include "IPv6Address.h"
 
 #include "WiFiType.h"
 //#include "WiFiSTA.h"
-//#include "WiFiAP.h"
+#include "WiFiAP.h"
 //#include "WiFiScan.h"
 #include "WiFiGeneric.h"
 
 #include "WiFiClient.h"
 #include "WiFiServer.h"
-//#include "WiFiUdp.h"
+#include "WiFiUdp.h"
 
-class WiFiClass : public WiFiGenericClass//, public WiFiSTAClass, public WiFiScanClass, public WiFiAPClass
+class WiFiClass : public WiFiGenericClass, public WiFiAPClass//, public WiFiSTAClass, public WiFiScanClass
 {
 /*public:
     using WiFiGenericClass::channel;
@@ -63,8 +63,15 @@ public:
 
     WiFiClass() {}
     void begin(const char* inSsid, const char* inPassword) {}
+
+    void config(IPAddress local_ip) {}
+    void config(IPAddress local_ip, IPAddress dns_server) {}
+    void config(IPAddress local_ip, IPAddress dns_server, IPAddress gateway) {}
+    void config(IPAddress local_ip, IPAddress dns_server, IPAddress gateway, IPAddress subnet) {}
+
     int status() { return WL_CONNECT_FAILED; }
-    int localIP() { return 0; }
+    int disconnect(bool arg) { return 0; }
+    IPAddress localIP() { return INADDR_NONE; }
 };
 
 extern WiFiClass WiFi;

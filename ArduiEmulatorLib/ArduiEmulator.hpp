@@ -59,6 +59,13 @@ typedef unsigned char	byte;
 #define OUTPUT_RESERVED		-4
 #define OUTPUT_INTERRUPT	-5
 
+#define PI 3.1415926535897932384626433832795
+#define HALF_PI 1.5707963267948966192313216916398
+#define TWO_PI 6.283185307179586476925286766559
+#define DEG_TO_RAD 0.017453292519943295769236907684886
+#define RAD_TO_DEG 57.295779513082320876798154814105
+#define EULER 2.718281828459045235360287471352
+
 #define DEC 10
 #define HEX 16
 #define OCT 8
@@ -70,6 +77,9 @@ typedef unsigned char	byte;
 #define PROGMEM
 #define PGM_P   const char *
 #define PROG_CHAR  char
+
+#define LSBFIRST 0
+#define MSBFIRST 1
 
 #define CHANGE 1
 #define FALLING 2
@@ -84,6 +94,7 @@ typedef unsigned char	byte;
 
 #define F(__stringConstant)	(__stringConstant)
 #define __FlashStringHelper	char
+#define itoa	_itoa
 
 typedef void (*pinEvent)(int inPin);
 typedef void (*debugLineEvent)(const char* inpLine);
@@ -179,6 +190,9 @@ extern void interrupts();
 extern void attachInterrupt(uint8_t nb, void(*f)(void), int mode);
 extern void detachInterrupt(uint8_t nb);
 extern uint8_t digitalPinToInterrupt(uint8_t);
+
+extern void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val);
+extern uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
 
 extern long map(long x, long in_min, long in_max, long out_min, long out_max);
 extern double power(double val, int exp);

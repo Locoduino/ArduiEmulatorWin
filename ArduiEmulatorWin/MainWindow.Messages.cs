@@ -37,6 +37,8 @@ namespace ArduiEmulatorWin
 		// TI id state									Timer 
 		//												id of the timer		
 		//												state : 'D'eclared, 'R'emoved, 'B'egin, 'E'nd
+		// LCD											Text screen LCD
+		// GRS											Graphic Screen
 
 		public bool ParseMessage(string inMessage)
 		{
@@ -241,6 +243,9 @@ namespace ArduiEmulatorWin
 
 				case "LCD":
 					return Lcd.ParseMessage(items);
+
+				case "GRS":
+					return Graphic.ParseMessage(items);
 
 				case "TI":
 					if (items.Length == 2)

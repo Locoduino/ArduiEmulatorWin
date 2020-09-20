@@ -62,6 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="ArduinoEsp32Devkit.cs" />
     <Compile Include="ArduinoUno.cs" />
+    <Compile Include="MainWindow.Graphic.cs" />
     <Compile Include="WhatsNewWindow.xaml.cs">
       <DependentUpon>WhatsNewWindow.xaml</DependentUpon>
     </Compile>

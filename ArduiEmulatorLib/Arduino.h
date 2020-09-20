@@ -5,9 +5,9 @@
 
 #include "ArduiEmulator.hpp"
 
-//#define ARDUINO_ARCH_ESP32
+#define ARDUINO_ARCH_ESP32
 
-#define ARDUINO_ARCH_AVR
+//#define ARDUINO_ARCH_AVR
 
 #ifdef ARDUINO_ARCH_AVR
 	//#define ARDUINO_AVR_MEGA
@@ -246,6 +246,19 @@ void timerDetachInterrupt(hw_timer_t*);
 void timerEnd(hw_timer_t*);
 
 void timersLoop(void);
+
+typedef int TaskHandle_t;
+
+void xTaskCreatePinnedToCore(void (*) (void*), const char*, int, void*, int, TaskHandle_t*, int);
+int xPortGetCoreID();
+
+void disableCore0WDT(void);
+void enableCore0WDT(void);
+void disableCore1WDT(void);
+void enableCore1WDT(void);
+
+#include "esp.h"
+#include "esp_event.h"
 #endif
 
 #define digitalPinToPort(P) ( P )

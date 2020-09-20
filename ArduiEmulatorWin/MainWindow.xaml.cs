@@ -196,6 +196,18 @@ namespace ArduiEmulatorWin
 
 		private void AboutButton_Click(object sender, RoutedEventArgs e)
 		{
+			this.ShowGraphicArea();
+
+			ParseMessage("GRS BG 500 150");
+			ParseMessage("GRS RC 10 10 40 40 0 0 0");
+			ParseMessage("GRS RC 55 10 40 40 255 255 255 255 255 255");
+			ParseMessage("GRS LN 55 55 100 100 0 255 0");
+			ParseMessage("GRS CI 120 30 20 0 0 255");
+			ParseMessage("GRS CI 170 30 20 0 0 255 0 0 255");
+			ParseMessage("GRS RR 200 10 40 60 10 0 255 0");
+			ParseMessage("GRS RR 260 10 40 60 10 0 255 0 0 255 0");
+
+
 			var dlg = new WindowAbout();
 
 			dlg.ShowDialog();
@@ -215,6 +227,28 @@ namespace ArduiEmulatorWin
 			{
 				string mess = "Pipe Send : " + "KBD " + key;
 				this.debug(mess);
+			}
+		}
+
+		public void ShowLCDScreen()
+		{
+			this.GraphicArea.Visibility = Visibility.Hidden;
+			this.LCDlines.Visibility = Visibility.Visible;
+			if (this.ScreenGrid.IsLoaded)
+			{
+				this.ScreenGrid.RowDefinitions[0].Height = new GridLength(this.ScreenGrid.ActualHeight, GridUnitType.Pixel);
+				this.ScreenGrid.RowDefinitions[1].Height = new GridLength(0, GridUnitType.Pixel);
+			}
+		}
+
+		public void ShowGraphicArea()
+		{
+			this.GraphicArea.Visibility = Visibility.Visible;
+			this.LCDlines.Visibility = Visibility.Hidden;
+			if (this.ScreenGrid.IsLoaded)
+			{
+				this.ScreenGrid.RowDefinitions[0].Height = new GridLength(0, GridUnitType.Pixel);
+				this.ScreenGrid.RowDefinitions[1].Height = new GridLength(this.ScreenGrid.ActualHeight, GridUnitType.Pixel);
 			}
 		}
 	}

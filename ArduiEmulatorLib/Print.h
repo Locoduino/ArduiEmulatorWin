@@ -25,7 +25,7 @@
 #include <string.h> // for strlen
 
 #include "WString.h"
-//#include "Printable.h"
+#include "Printable.h"
 
 #define DEC 10
 #define HEX 16
@@ -73,7 +73,7 @@ class Print
     size_t print(long, int = DEC) { return 0; }
     size_t print(unsigned long, int = DEC) { return 0; }
     size_t print(double, int = 2) { return 0; }
-    //size_t print(const Printable&);
+    size_t print(const Printable&);
 
     //size_t println(const __FlashStringHelper *);
     size_t println(const String &s) { return 0; }
@@ -85,7 +85,7 @@ class Print
     size_t println(long, int = DEC) { return 0; }
     size_t println(unsigned long, int = DEC) { return 0; }
     size_t println(double, int = 2) { return 0; }
-    //size_t println(const Printable&);
+    size_t println(const Printable&);
     size_t println(void) { return 0; }
 
     virtual void flush() { /* Empty implementation for backward compatibility */ }

@@ -48,6 +48,7 @@ public:
     operator bool(){return false;}
     int setTimeout(uint32_t seconds){return 0;}
     void stopAll(){}
+    uint8_t status() { return WL_DISCONNECTED; }
 };
 
 #endif /* _WIFISERVER_H_ */

@@ -23,6 +23,7 @@
 
 #include "Arduino.h"
 #include "Client.h"
+#include "Print.h"
 #include <memory>
 
 class WiFiClientSocketHandle;
@@ -59,6 +60,7 @@ public:
     int available(){return 0; }
     int read(){return 0; }
     int read(uint8_t *buf, size_t size){return 0; }
+    String readString() { return String(); }
     int peek(){return 0; }
     void flush(){}
     void stop(){}
@@ -92,17 +94,17 @@ public:
     int setNoDelay(bool nodelay){return 0; }
     bool getNoDelay(){return false; }
 
-    IPAddress remoteIP() const{return IPAddress::INADDR_NONE; }
-    IPAddress remoteIP(int fd) const{return IPAddress::INADDR_NONE; }
+    IPAddress remoteIP() const{return INADDR_NONE; }
+    IPAddress remoteIP(int fd) const{return INADDR_NONE; }
     uint16_t remotePort() const{return 0; }
     uint16_t remotePort(int fd) const{return 0; }
-    IPAddress localIP() const{return IPAddress::INADDR_NONE; }
-    IPAddress localIP(int fd) const{return IPAddress::INADDR_NONE; }
+    IPAddress localIP() const{return INADDR_NONE; }
+    IPAddress localIP(int fd) const{return INADDR_NONE; }
     uint16_t localPort() const{return 0; }
     uint16_t localPort(int fd) const{return 0; }
 
     //friend class WiFiServer;
-    //using Print::write;
+    using Print::write;
 };
 
 #endif /* _WIFICLIENT_H_ */

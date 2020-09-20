@@ -103,11 +103,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;VISUALSTUDIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;VISUALSTUDIO;%(PreprocessorDefinitions);ARDUINO=10812</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,26 +154,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Adafruit_GFX.cpp" />
     <ClCompile Include="ArduiEmulator.cpp" />
     <ClCompile Include="EEPROM.cpp" />
     <ClCompile Include="Esp32Emulator.cpp" />
     <ClCompile Include="Ethernet.cpp" />
+    <ClCompile Include="FS.cpp" />
     <ClCompile Include="IPAddress.cpp" />
     <ClCompile Include="LiquidCrystal.cpp" />
     <ClCompile Include="NamedPipes.cpp" />
+    <ClCompile Include="OneButton.cpp" />
     <ClCompile Include="Serial.cpp" />
+    <ClCompile Include="SPIFFS.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="WiFi.cpp" />
     <ClCompile Include="WString.cpp" />
     <ClCompile Include="Wire.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ArduinoJson\ArduinoJson.h" />
+    <ClInclude Include="..\ArduinoJson\ArduinoJson.hpp" />
+    <ClInclude Include="Adafruit_GFX.h" />
+    <ClInclude Include="Adafruit_SSD1306.h" />
     <ClInclude Include="ArduiEmulator.hpp" />
     <ClInclude Include="Arduino.h" />
     <ClInclude Include="binary.h" />
     <ClInclude Include="BluetoothSerial.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EEPROM.hpp" />
+    <ClInclude Include="Esp.h" />
     <ClInclude Include="esp_err.h" />
     <ClInclude Include="esp_event.h" />
     <ClInclude Include="esp_interface.h" />
@@ -179,15 +190,23 @@
     <ClInclude Include="esp_wifi_types.h" />
     <ClInclude Include="Ethernet.h" />
     <ClInclude Include="Ethernet.hpp" />
+    <ClInclude Include="FS.h" />
     <ClInclude Include="NamedPipes.h" />
+    <ClInclude Include="OneButton.h" />
     <ClInclude Include="Print.h" />
+    <ClInclude Include="Printable.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="SPIFFS.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Udp.h" />
     <ClInclude Include="WiFi.h" />
+    <ClInclude Include="WiFiAP.h" />
     <ClInclude Include="WiFiClient.h" />
     <ClInclude Include="WiFiGeneric.h" />
+    <ClInclude Include="WiFiMulti.h" />
     <ClInclude Include="WiFiServer.h" />
     <ClInclude Include="WiFiType.h" />
+    <ClInclude Include="WiFiUdp.h" />
     <ClInclude Include="WString.h" />
     <ClInclude Include="IPAddress.h" />
     <ClInclude Include="LiquidCrystal.h" />

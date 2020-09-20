@@ -4,6 +4,7 @@
 #ifdef ARDUINO_ARCH_ESP32
 
 static hw_timer_t timers[4];
+EspClass ESP;
 
 hw_timer_t::hw_timer_t()
 {
@@ -138,5 +139,45 @@ void timersLoop()
 			dateStart = millis();
 		}
 }
+
+SemaphoreHandle_t xSemaphoreCreateMutex() 
+{ 
+	return 0; 
+}
+
+uint8_t xSemaphoreTake(SemaphoreHandle_t, TickType_t) 
+{
+	return pdTRUE; 
+}
+
+void xSemaphoreGive(SemaphoreHandle_t) 
+{ 
+}
+
+void xTaskCreatePinnedToCore(void (*) (void*), const char*, int, void*, int, TaskHandle_t*, int) 
+{
+}
+
+int xPortGetCoreID() 
+{ 
+	return 1; 
+}
+
+void disableCore0WDT(void)
+{
+}
+
+void enableCore0WDT(void)
+{
+}
+
+void disableCore1WDT(void)
+{
+}
+
+void enableCore1WDT(void)
+{
+}
+
 
 #endif

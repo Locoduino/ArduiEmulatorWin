@@ -21,6 +21,7 @@
 #define IPAddress_hpp
 
 #include "stdint.h"
+#include "Printable.h"
 #include "Arduino.h"
 
 // INADDR_NONE already exists in system includes sdk/ws2def.h...
@@ -28,7 +29,7 @@
 #undef INADDR_NONE
 #endif
 
-class IPAddress/* : public Printable */ 
+class IPAddress : public Printable
 {
 private:
 	//    union {
@@ -39,34 +40,15 @@ private:
 	void bytesToDword();
 	void DwordToBytes();
 
-	// Access the raw byte array containing the address.  Because this returns a pointer
-	// to the internal structure rather than a copy of the address this function should only
-	// be used when you know that the usage of the returned uint8_t* will be transient and not
-	// stored.
-	//uint8_t* raw_address() { return _address.bytes; };
-
 public:
-	static IPAddress INADDR_NONE;
-	static IPAddress INADDR_DEFAULT_SUBMASK;
+
+	// Access the raw byte array containing the address.  Because this returns a pointer
+		// to the internal structure rather than a copy of the address this function should only
+		// be used when you know that the usage of the returned uint8_t* will be transient and not
+		// stored.
+	uint8_t* raw_address() { return this->bytes; };
 
 	// Constructors
-
-	static class _init
-	{
-	public:
-		_init() 
-		{
-			INADDR_NONE.dword = 0;
-			INADDR_NONE.DwordToBytes();
-
-			INADDR_DEFAULT_SUBMASK.bytes[0] = 255;
-			INADDR_DEFAULT_SUBMASK.bytes[1] = 255;
-			INADDR_DEFAULT_SUBMASK.bytes[2] = 255;
-			INADDR_DEFAULT_SUBMASK.bytes[3] = 0;
-			INADDR_DEFAULT_SUBMASK.bytesToDword();
-		}
-	} _initializer;
-
 	IPAddress();
 	IPAddress(uint8_t first_octet, uint8_t second_octet, uint8_t third_octet, uint8_t fourth_octet);
 	IPAddress(uint32_t address);
@@ -84,14 +66,14 @@ public:
 
 	// Overloaded index operator to allow getting and setting individual octets of the address
 	uint8_t operator[](int index);
-
+	
 	// Overloaded copy operators to allow initialisation of IPAddress objects from other types
-	IPAddress &operator=(const uint8_t *address);
+	IPAddress& operator=(const uint8_t *address);
 
 	//IPAddress operator=(const uint8_t *address);
-	IPAddress &operator=(uint32_t address);
+	IPAddress& operator=(uint32_t address);
 
-	//    virtual size_t printTo(Print& p) const;
+	virtual size_t printTo(Print& p) const;
 
 	//    friend class EthernetClass;
 	/*    friend class UDP;
@@ -100,5 +82,7 @@ public:
 	friend class DhcpClass;
 	friend class DNSClient;*/
 };
+
+const IPAddress INADDR_NONE(0, 0, 0, 0); 
 
 #endif

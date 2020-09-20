@@ -288,7 +288,8 @@ String & String::copy(const char *cstr, unsigned int length)
 		return *this;
 	}
 	len = length;
-	strcpy_s(buffer, strlen(cstr), cstr);
+	if (len > 0)
+		strcpy_s(this->buffer, this->capacity, cstr);
 	return *this;
 }
 
@@ -341,7 +342,7 @@ unsigned char String::concat(const char *cstr, unsigned int length)
 	if (!reserve(newlen)) {
 		return 0;
 	}
-	strcpy_s(buffer + len, strlen(cstr), cstr);
+	strcpy_s(buffer + len, this->capacity, cstr);
 	len = newlen;
 	return 1;
 }
@@ -801,7 +802,7 @@ void String::replace(const String& find, const String& replace)
 			readFrom = foundAt + find.len;
 			len += diff;
 		}
-		strcpy_s(writeTo, strlen(readFrom), readFrom);
+		strcpy_s(writeTo, this->capacity, readFrom);
 	}
 	else {
 		unsigned int size = len; // compute size needed for result

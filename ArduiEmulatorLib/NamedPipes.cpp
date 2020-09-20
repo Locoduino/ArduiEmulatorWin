@@ -24,13 +24,13 @@ CString lpszPipenameListener;
 HANDLE hThread = NULL;
 HANDLE hTimer = NULL;
 
-char startBuffer[100][200];
+char startBuffer[1000][200];
 int startBufferCount = 0;
 
 unsigned long __stdcall Receiver(void * pParam)
 {
 	BOOL fSuccess;
-	char chBuf[500];
+	char chBuf[1000];
 	DWORD cbRead;
 
 	while (1)
@@ -51,7 +51,7 @@ unsigned long __stdcall Receiver(void * pParam)
 			while (hPipeReceiver == NULL || hPipeReceiver == INVALID_HANDLE_VALUE);
 		}
 
-		fSuccess = ReadFile(hPipeReceiver, chBuf, 500, &cbRead, NULL);
+		fSuccess = ReadFile(hPipeReceiver, chBuf, 1000, &cbRead, NULL);
 		if (fSuccess)
 		{
 			CloseHandle(hPipeReceiver);
@@ -202,13 +202,14 @@ void NamedPipesSend(MessagesTypes inType, const CString &mess)
 	case PinMessagePinName:		str.Format(_T("PN %s"), (LPCTSTR)mess);			break;
 	case NewExpander:					str.Format(_T("EXP %s"), (LPCTSTR)mess);			break;
 	case LcdMessage:					str.Format(_T("LCD %s"), (LPCTSTR)mess);			break;
+	case GraphicMessage:			str.Format(_T("GRS %s"), (LPCTSTR)mess);			break;
 	case TimerMessage:				str.Format(_T("TI %s"), (LPCTSTR)mess);			break;
 	}
 
 	if (!initialized)
 	{
 		CT2A ascii(str);
-		strncpy_s(startBuffer[startBufferCount++], ascii.m_psz, 100);
+		strncpy_s(startBuffer[startBufferCount++], ascii.m_psz, 1000);
 		return;
 	}
 
@@ -244,7 +245,7 @@ void NamedPipesSendRaw(const CString& mess)
 
 	DWORD cbWritten;
 
-	WriteFile(hPipeSender, mess, mess.GetLength() * sizeof(TCHAR), &cbWritten, NULL);
+	bool ret = WriteFile(hPipeSender, mess, mess.GetLength() * sizeof(TCHAR), &cbWritten, NULL);
 }
 
 

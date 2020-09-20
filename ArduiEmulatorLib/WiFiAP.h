@@ -37,26 +37,26 @@ class WiFiAPClass
 
 public:
 
-    bool softAP(const char* ssid, const char* passphrase = NULL, int channel = 1, int ssid_hidden = 0, int max_connection = 4){}
-    bool softAPConfig(IPAddress local_ip, IPAddress gateway, IPAddress subnet){}
-    bool softAPdisconnect(bool wifioff = false){}
+  bool softAP(const char* ssid, const char* passphrase = NULL, int channel = 1, int ssid_hidden = 0, int max_connection = 4) { return false; }
+  bool softAPConfig(IPAddress local_ip, IPAddress gateway, IPAddress subnet) { return false; }
+  bool softAPdisconnect(bool wifioff = false) { return false; }
 
-    uint8_t softAPgetStationNum(){}
+  uint8_t softAPgetStationNum() { return 0; }
 
-    IPAddress softAPIP(){}
+  IPAddress softAPIP() { return INADDR_NONE; }
 
-    IPAddress softAPBroadcastIP(){}
-    IPAddress softAPNetworkID(){}
-    uint8_t softAPSubnetCIDR(){}
+    IPAddress softAPBroadcastIP(){ return INADDR_NONE; }
+    IPAddress softAPNetworkID(){ return INADDR_NONE; }
+    uint8_t softAPSubnetCIDR() { return 0; }
 
-    bool softAPenableIpV6(){}
-    IPv6Address softAPIPv6(){}
+    bool softAPenableIpV6() { return false; }
+    //IPv6Address softAPIPv6(){}
 
-    const char * softAPgetHostname(){}
-    bool softAPsetHostname(const char * hostname){}
+    const char* softAPgetHostname() { return NULL; }
+    bool softAPsetHostname(const char* hostname) { return false; }
 
-    uint8_t* softAPmacAddress(uint8_t* mac){}
-    String softAPmacAddress(void){}
+    uint8_t* softAPmacAddress(uint8_t* mac) { return NULL; }
+    String softAPmacAddress(void) { return ""; }
 
 protected:
 

@@ -12,11 +12,7 @@
 		</Window.Resources>
 		<Grid>
 				<Grid.RowDefinitions>
-						<RowDefinition Height="30*"/>
-						<RowDefinition Height="30*"/>
-						<RowDefinition Height="30*"/>
-						<RowDefinition Height="30*"/>
-						<RowDefinition Height="30*"/>
+						<RowDefinition Height="150*"/>
 						<RowDefinition Height="300*"/>
 						<RowDefinition Height="30*"/>
 						<RowDefinition Height="145*"/>
@@ -26,47 +22,64 @@
 						<ColumnDefinition Width="535*"/>
 						<ColumnDefinition Width="200*"/>
 				</Grid.ColumnDefinitions>
-				<TextBox x:Name="Lcd1" TextWrapping="Wrap" Text="{Binding Path=lcdLine1, Mode=OneWay}" Grid.Column="0" Grid.Row="0" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0" >
-						<TextBox.Background>
-								<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-						</TextBox.Background>
-				</TextBox>
-				<TextBox x:Name="Lcd2" TextWrapping="Wrap" Text="{Binding Path=lcdLine2, Mode=OneWay}" Grid.Column="0" Grid.Row="1" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
-						<TextBox.Background>
-								<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-						</TextBox.Background>
-				</TextBox>
-				<TextBox x:Name="Lcd3" TextWrapping="Wrap" Text="{Binding Path=lcdLine3, Mode=OneWay}" Grid.Column="0" Grid.Row="2" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
-						<TextBox.Background>
-								<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-						</TextBox.Background>
-				</TextBox>
-				<TextBox x:Name="Lcd4" TextWrapping="Wrap" Text="{Binding Path=lcdLine4, Mode=OneWay}" Grid.Column="0" Grid.Row="3" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
-						<TextBox.Background>
-								<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-						</TextBox.Background>
-				</TextBox>
-				<TextBox x:Name="Lcd5" TextWrapping="Wrap" Text="{Binding Path=lcdLine5, Mode=OneWay}" Grid.Column="0" Grid.Row="4" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
-						<TextBox.Background>
-								<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
-						</TextBox.Background>
-				</TextBox>
-				<TextBox x:Name="Console" TextWrapping="Wrap" Text="" AcceptsReturn="True" Grid.Column="0" Grid.Row="5" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+				<Grid x:Name="ScreenGrid">
+						<Grid.RowDefinitions>
+								<RowDefinition Height="0"/>
+								<RowDefinition Height="150"/>
+						</Grid.RowDefinitions>
+						<local:MyVisualHost x:Name="GraphicArea" Grid.Column ="0" Grid.Row="0">
+						</local:MyVisualHost>
+						<Grid x:Name="LCDlines" Grid.Column ="0" Grid.Row="1">
+								<Grid.RowDefinitions>
+										<RowDefinition Height="30*"/>
+										<RowDefinition Height="30*"/>
+										<RowDefinition Height="30*"/>
+										<RowDefinition Height="30*"/>
+										<RowDefinition Height="30*"/>
+								</Grid.RowDefinitions>
+								<TextBox x:Name="Lcd1" TextWrapping="Wrap" Text="{Binding Path=lcdLine1, Mode=OneWay}" Grid.Column="0" Grid.Row="0" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0" >
+										<TextBox.Background>
+												<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+										</TextBox.Background>
+								</TextBox>
+								<TextBox x:Name="Lcd2" TextWrapping="Wrap" Text="{Binding Path=lcdLine2, Mode=OneWay}" Grid.Column="0" Grid.Row="1" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
+										<TextBox.Background>
+												<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+										</TextBox.Background>
+								</TextBox>
+								<TextBox x:Name="Lcd3" TextWrapping="Wrap" Text="{Binding Path=lcdLine3, Mode=OneWay}" Grid.Column="0" Grid.Row="2" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
+										<TextBox.Background>
+												<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+										</TextBox.Background>
+								</TextBox>
+								<TextBox x:Name="Lcd4" TextWrapping="Wrap" Text="{Binding Path=lcdLine4, Mode=OneWay}" Grid.Column="0" Grid.Row="3" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
+										<TextBox.Background>
+												<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+										</TextBox.Background>
+								</TextBox>
+								<TextBox x:Name="Lcd5" TextWrapping="Wrap" Text="{Binding Path=lcdLine5, Mode=OneWay}" Grid.Column="0" Grid.Row="4" IsReadOnly="True" FontSize="24" FontWeight="Bold" FontFamily="Consolas" BorderThickness="0">
+										<TextBox.Background>
+												<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+										</TextBox.Background>
+								</TextBox>
+						</Grid>
+				</Grid>
+				<TextBox x:Name="Console" TextWrapping="Wrap" Text="" AcceptsReturn="True" Grid.Column="0" Grid.Row="1" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
 						<TextBox.Background>
 								<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
 						</TextBox.Background>
 				</TextBox>
-				<DockPanel Margin="0,0,0,0" Grid.Column="0" Grid.Row="6" Background="LightGray">
+				<DockPanel Margin="0,0,0,0" Grid.Column="0" Grid.Row="2" Background="LightGray">
 						<Button x:Name="SerialButton" Content="Serial" Width="40" Click="SerialButton_Click"/>
 						<Button x:Name="PinsButton" Content="Pins" Width="40" DockPanel.Dock="Right" Click="PinsButton_Click"/>
 						<TextBox x:Name="SerialInput" AcceptsReturn="True" Height="20"/>
 				</DockPanel>
-				<TextBox x:Name="Debug" Margin="0,0,0,0" TextWrapping="Wrap" Text="Debug" AcceptsReturn="True" IsReadOnly="True" Grid.Column="0" Grid.Row="7">
+				<TextBox x:Name="Debug" Margin="0,0,0,0" TextWrapping="Wrap" Text="Debug" AcceptsReturn="True" IsReadOnly="True" Grid.Column="0" Grid.Row="3">
 						<TextBox.Background>
 								<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
 						</TextBox.Background>
 				</TextBox>
-				<ListBox x:Name="ListPins" Margin="0" Grid.Column="1" Grid.RowSpan="9" FontFamily="Source Code Pro" FontSize="12" FontWeight="Bold" MouseDoubleClick="ListPins_MouseDoubleClick">
+				<ListBox x:Name="ListPins" Margin="0" Grid.Column="1" Grid.RowSpan="5" FontFamily="Source Code Pro" FontSize="12" FontWeight="Bold" MouseDoubleClick="ListPins_MouseDoubleClick">
 						<ListBox.ItemTemplate>
 								<DataTemplate>
 										<StackPanel Orientation="Horizontal" Margin="0">
@@ -76,13 +89,13 @@
 								</DataTemplate>
 						</ListBox.ItemTemplate>
 				</ListBox>
-				<DockPanel Margin="0,0,0,0" Grid.Column="0" Grid.Row="8" Background="LightGray">
+				<DockPanel Margin="0,0,0,0" Grid.Column="0" Grid.Row="4" Background="LightGray">
 						<Button x:Name="AboutButton" Content="About" Width="60" DockPanel.Dock="Right" Click="AboutButton_Click"/>
 						<Label >
 								<Image x:Name="Connected" Source="Disconnected.png" Height="20" Width="40"/>
 						</Label>
 				</DockPanel>
-				<ComboBox x:Name="ArduinoModelCombo" HorizontalAlignment="Left" Margin="80,5,0,0" Grid.Row="8" VerticalAlignment="Top" Width="120" SelectionChanged="ArduinoModelCombo_SelectionChanged"/>
+				<ComboBox x:Name="ArduinoModelCombo" HorizontalAlignment="Left" Margin="80,5,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120" SelectionChanged="ArduinoModelCombo_SelectionChanged"/>
 				<CheckBox x:Name="checkBoxDebugPipeMode" Content="Debug Pipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,5,0,0" Grid.Row="8" Click="CheckBoxDebugPipe_Click" />
 		</Grid>
 </Window>

@@ -433,6 +433,15 @@ uint8_t digitalPinToInterrupt(uint8_t pin)
 	return pin;
 }
 
+void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val)
+{
+}
+
+uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
+{
+	return 0;
+}
+
 /*uint16_t makeWord(uint16_t w)
 {
 	return w;

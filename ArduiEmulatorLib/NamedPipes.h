@@ -11,7 +11,8 @@ enum MessagesTypes
 	PinMessagePinName,
 	TimerMessage,
 	NewExpander,
-	LcdMessage
+	LcdMessage,
+	GraphicMessage
 };
 
 extern void NamedPipesBegin(const CString &pipeSenderName, const CString &pipeListenerName, unsigned int inIdleDelay = 1000);

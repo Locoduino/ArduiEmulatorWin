@@ -185,4 +185,14 @@ void esp_event_set_default_wifi_handlers();
 }
 #endif
 
+#define SemaphoreHandle_t int
+#define TickType_t        int
+#define pdTRUE            1
+#define pdFALSE           0
+
+SemaphoreHandle_t xSemaphoreCreateMutex();
+uint8_t xSemaphoreTake(SemaphoreHandle_t, TickType_t);
+void xSemaphoreGive(SemaphoreHandle_t);
+
+
 #endif /* __ESP_EVENT_H__ */
